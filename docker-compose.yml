@@ -1,0 +1,40 @@
+version: '3.6'
+
+services:
+  apigateway: &base
+    container_name: apigateway
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: apigateway
+    ports:
+      - 3000:80
+    env_file: 
+      - docker.env
+    networks:
+      service:
+
+  servicea:
+    <<: *base
+    container_name: servicea
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: servicea
+    ports:
+      - 3001:80
+
+  serviceb:
+    <<: *base
+    container_name: serviceb
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: serviceb
+    ports:
+      - 3002:80
+
+
+networks:
+  service:
+  
